@@ -1,0 +1,93 @@
+﻿@model List<Web.SurveySystem.Models.ViewModels.InstructionVM>
+@{
+    ViewBag.Title = "Инструкции / Instructions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null && Model.Any())
+{
+    if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+    {
+        foreach (var item in Model)
+        {
+            <div class="row mb-2 pb-2">
+                <div class="col">
+                    <div class="card pb-2 border-dark">
+                        <div class="card-header pt-1 pb-1 mb-1">
+                            <label class="m-b-0 p-b-0"><span class="fa fa-file"></span> @item.NameRus / @item.NameEng</label>
+                        </div>
+                        <div class="card-body pt-1 pb-0">
+                            @if (item.InstructionId != null && item.InstructionId != Guid.Empty)
+                            {
+                                <div class="form-row">
+                                    @if (item.UploadFileRusId != null && item.UploadFileRusId != Guid.Empty)
+                                    {
+                                        <div class="form-group col-12 col-lg-6">
+                                            <a class="btn btn-success btn-block" href="@Url.RouteUrl("download", new {instructionId = item.InstructionId, rus = true})"><span class="fa fa-download"></span> @item.NameRus (Rus) / @item.NameRus (Rus) </a>
+                                        </div>
+                                    }
+                                    @if (item.UploadFileEngId != null && item.UploadFileEngId != Guid.Empty)
+                                    {
+                                        <div class="form-group col-12 col-lg-6">
+                                            <a class="btn btn-primary btn-block" href="@Url.RouteUrl("download", new {instructionId = item.InstructionId, rus = true})"><span class="fa fa-download"></span> @item.NameRus (Eng) / @item.NameRus (Eng) </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        foreach (var item in Model.Where(m => !m.IsAdmin))
+        {
+            <div class="row mb-2 pb-2">
+                <div class="col">
+                    <div class="card pb-2 border-dark">
+                        <div class="card-header pt-1 pb-1 mb-1">
+                            <label class="m-b-0 p-b-0"><span class="fa fa-file" aria-hidden="true"></span> @item.NameRus / @item.NameEng</label>
+                        </div>
+                        <div class="card-body pt-1 pb-0">
+                            @if (item.InstructionId != null && item.InstructionId != Guid.Empty)
+                            {
+                                <div class="form-row">
+                                    @if (item.UploadFileRusId != null && item.UploadFileRusId != Guid.Empty)
+                                    {
+                                        <div class="form-group col-12 col-lg-6">
+                                            <a class="btn btn-success btn-block" href="@Url.RouteUrl("download", new {instructionId = item.InstructionId, rus = true})"><span class="fa fa-download"></span> @item.NameRus (Rus) / @item.NameRus (Rus) </a>
+                                        </div>
+                                    }
+                                    @if (item.UploadFileEngId != null && item.UploadFileEngId != Guid.Empty)
+                                    {
+                                        <div class="form-group col-12 col-lg-6">
+                                            <a class="btn btn-primary btn-block" href="@Url.Action("download",  new {instructionId = item.InstructionId})"><span class="fa fa-download"></span> @item.NameRus (Eng) / @item.NameRus (Eng) </a>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <div class="card border-danger mt-1">
+                <div class="card-body ">
+                    <div class="row text-center">
+                        <div class="form-group col-12 text-center">
+                            <h4 class="card-title text-danger font-weight-bold font-italic">Инструкции не найдены / Instructions not found</h4>
+                            <a href="@Url.Action("Index", "Task")" class="btn btn-primary"><i class="fa fa-home"></i> Главная / Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

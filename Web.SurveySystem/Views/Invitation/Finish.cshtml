@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Окончание теста / test finish";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    window.InvitationId = '@(ViewBag.InvitationId)';
+    window.SurveyCode = '@(ViewBag.SurveyCode)';
+    window.CurrentUserId = '@(ViewBag.CurrentUserId)';
+</script>
+
+@section scripts
+{
+    @*@Scripts.Render("~/Scripts/app/survey/survey.start.js")*@
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div class="row" style="padding: 15px 5px 5px 5px;">
+        <div class="col">
+            <div class="card col-12 border-warning">
+                <div class="card-body">
+                    <div class="row">
+                        <h5>Тест окончен / Test completed</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <script type="text/x-kendo-template" id="headerStartSurvey">
+        <div class="form-group row info">
+            <fieldset class="col-xs-12 col-sm-12" style="border: 2px solid; width: 10px">
+
+                <legend style="font-size:22px;">Спасибо за участие в тесте #=data.SurveyCode# / Спасибо за участие в тесте #=data.SurveyCode#</legend>
+                <table class="table" style="table-layout: fixed; width: 100%;">
+                    <tr>
+                        <th width="200px">Название теста <br /> Test Name</th>
+                        <th width="400px">Цель <br /> Purpose</th>
+                        <th width="100px">Время <br /> Est.time</th>
+                    </tr>
+                    <tr>
+                        <td><span class="label label-info">#=data.NameRus# / #=data.NameEng#</span></td>
+                        <td><span class="label label-info">#=data.PurposeRus# / #=data.PurposeEng#</span></td>
+                        <td><span class="label label-info"> #=data.TimeEstimateMin#</span></td>
+                    </tr>
+                </table>
+
+            </fieldset>
+        </div>
+    </script>
+    <div class="row">
+        <div class="col">
+            <div id="contentStartUser" class="ml-4 mr-4"></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-lg"><i class="fa fa-home" aria-hidden="true"></i> Домой / Home </a>
+            <a href="@Url.Action("Index", "Invitation")" class="btn btn-success btn-lg"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> Мои тесты / My tests </a>
+        </div>
+    </div>
+}

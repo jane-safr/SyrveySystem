@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Ошибка 403 / Error 403";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .error-template {
+        padding: 40px 15px;
+        text-align: center;
+    }
+
+    .error-actions {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .error-actions .btn {
+            margin-right: 10px;
+        }
+</style>
+@if (Request.IsAuthenticated)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="error-template">
+                    <h2 class="text-danger">Forbidden</h2>
+                    <h2>
+                        403 Доступ запрещен / 403 Forbidden
+                    </h2>
+                    <div>
+                        Доступ запрещен! / Access is denied!
+                    </div>
+                    <div class="error-actions">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary btn-lg"><i class="fa fa-home" aria-hidden="true"></i> Главная / Home </a>
+                        <a href="mailto:a.loginov@titan2.ru?subject=SurveySystemError403" class="btn btn-secondary btn-lg"><i class="fa fa-envelope" aria-hidden="true"></i> Уведомить / Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

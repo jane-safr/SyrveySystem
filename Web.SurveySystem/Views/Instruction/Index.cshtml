@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Инструкции / Instructions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script id="templateWinModalUploadFile" type="text/x-kendo-template">
+        <div class="row mt-0 mr-0 ml-0">
+            <label class="font-weight-bold">Загрузите инструкцию / Upload instruction</label>
+            <div class="form-group col-12 col-sm-12">
+                <input name="files" id="files" type="file" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                <div>
+                    <span style="color: red">
+                        Форматы:<strong> pdf,doc,docx</strong> / Formats: <strong>pdf,doc,docx</strong>
+                    </span><br />
+                    <span style="color: red">Максимальный размер файла: <strong>5MB</strong> / Maximum allowed file size: <strong>5MB</strong></span>
+                </div>
+            </div>
+            <div class="form-group col-12">
+                <button type="button" onclick="closeWinModalEdT()" id="btnCloseComment" class="btn btn-danger btn-block"><span class="fa fa-times"></span> Закрыть / Close</button>
+            </div>
+        </div>
+    </script>
+    @Scripts.Render("~/Scripts/app/instruction/instruction.grid.js")
+}
+<div id="winModEditT"></div>
+<div class="row m-b-5">
+    <div class="col-12 col-sm-2">
+        <a href="@Url.Action("Index", "Directory")" class="btn btn-link btn-sm"><i class="fa fa fa-backward"></i> Назад / Backward</a>
+    </div>
+</div>
+<div class="row" style="padding: 15px 5px 5px 5px;">
+    <div class="col-12">
+        <label class="font-weight-bold" for="gridInstructions">Инструкции / Instructions</label>
+        <div id="gridInstructions"></div>
+    </div>
+</div>

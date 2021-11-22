@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Карточка теста / Test Card";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="winModEditT"></div>
+@section scripts
+{
+    <script id="winModalSendInvitation" type="text/x-kendo-template">
+    <div class="row m-0 p-0">
+        <div class="col">
+            <label class="font-weight-bold">Приглашение на тест / Invitation on test N <span id="lblNumber" class="text-primary font-italic"></span></label>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-12">
+            <label for="dpTestEnd">Дата завершения / Date of completion</label>
+        </div>
+        <div class="col-12">
+            <input id="dpTestEnd" value="" title="Укажите дату окончания тестирования / Select date of completion" />
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col">
+            <label>Выберите сотрудников / Select employees</label>
+        </div>
+        <div class="col-12">            
+             <select id="multiSelectUsers" multiple="multiple"></select>
+             <span id="lbCountUser" style="float:right; font-size:10pt">Выбрано / Selected: <span id="countUser">0</span></span>            
+        </div>
+    </div>
+    <div class="row mt-0 mr-0 ml-0">
+        <div class="form-group col-12 col-md-6">
+            <button type="button" onclick="closeWinModalEdT()" class="btn btn-danger btn-block"><span class="fa fa-times"></span> Закрыть / Close</button>
+        </div>
+        <div class="form-group col-12 col-md-6">
+            <button type="button" id="sendInvitationBtn" class="btn btn-success btn-block"><span class="fa fa-paper-plane"></span> Отправить / Send</button>
+        </div>
+     </div>
+</script>
+<script>
+        window.SurveyId = '@(ViewBag.SurveyId)';
+        window.SurveyCode = '@(ViewBag.SurveyCode)';
+        window.CurrentUserId = '@(ViewBag.CurrentUserId)';
+        window.TabPId = '@(ViewBag.TabPId)';
+        window.IsActiveSurvey = @(Json.Encode(ViewBag.IsActive ?? false));
+</script>
+    @Scripts.Render("~/Scripts/app/survey/survey.details.js")
+    @Scripts.Render("~/Scripts/app/survey/survey.questions.grid.js")
+    @Scripts.Render("~/Scripts/app/survey/survey.invitations.grid.js")
+}
+<style>
+    .selected {
+        background-color: #add8e6;
+    }
+</style>
+
+<div class="row" style="padding: 5px;">
+    <div class="form-group col-12 col-sm-12 ml-2">
+        <a href="@Url.Action("Index", "Survey")" class="btn btn-primary btn-sm" title="Вернуться к списку тестов / Back to test list"><span class="fa fa-reply"></span> Назад / Back</a>
+    </div>
+</div>
+<script type="text/x-kendo-template" id="headerStartSurvey">
+<div class="form-group row info">
+    <fieldset class="col-xs-12 col-sm-12" style="border: 2px solid; width: 10px">
+        <legend style="font-size:22px;">Тест #=data.SurveyCode# / Test #=data.SurveyCode#</legend>
+        <table class="table" style=" width: 100%;">               
+            <tr>
+                <th>Название теста / Test Name</th>
+                <th>Тип теста / Test Type</th>
+                @*<th min-width="50%">Цель / Purpose</th>*@
+                <th>Время / Est.time</th>
+                <th>Опрос / Survey</th>
+                <th>Анон. / Is Anon</th>
+                @if (ViewBag.ImageData != null)
+                {
+                    <th>Код / QR</th>
+                }
+            </tr>
+            <tr>
+                <td width="30%"><span class="label label-info">#=data.NameRus# / #=data.NameEng#</span></td>
+                <td width="20%"><span class="label label-info">#=data.SurveyType.FullName#</span></td>
+                @*<td><span class="label label-info">#=data.PurposeRus# / #=data.PurposeEng#</span></td>*@
+                <td width="10%"><span class="label label-info"> #=data.TimeEstimateMin#</span></td>
+                <td width="10%"> <input type="checkbox" #=data.IsSurvey ? "checked=checked" : "" # disabled="disabled" /></td>
+                <td width="10%"> <input type="checkbox" #=data.IsAnonymous ? "checked=checked" : "" # disabled="disabled" /></td>
+                 @if (@ViewBag.ImageData != null)
+                 {
+                     <td width="10%"> <img alt="" id="imgQr" src="@ViewBag.ImageData"  width="30%"></td>
+                 }
+            </tr>
+        </table>
+    </fieldset>
+</div>
+</script>
+<div class="row">
+    <div class="col">
+        <div id="contentStartUser" class="ml-4 mr-4"></div>
+    </div>
+</div>
+
+<div class="form-group  col-12" id="divtabSurveys">
+    <div id="tabSurvey">
+        <ul>
+            <li>Список вопросов / Question List <span id="countQuestions" class="badge badge-secondary badge-pill mr-1 ml-1" style="float: right;">0</span></li>
+            @if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+            {
+                <li class="k-state-active">Приглашения / Invitations <span id="countInvitations" class="badge badge-secondary badge-pill mr-1 ml-1" style="float: right;">0</span></li>
+            }
+        </ul>
+        <div id="tabQuestions">
+            <div id="gridQuestions" class="mt-3"></div>
+        </div>
+        @if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+        {
+            <div id="tabInvitations">
+                <div id="gridInvitations" class="mt-3"></div>
+            </div>
+        }
+    </div>
+</div>

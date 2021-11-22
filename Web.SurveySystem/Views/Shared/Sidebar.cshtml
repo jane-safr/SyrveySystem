@@ -1,0 +1,56 @@
+﻿@if (Request.IsAuthenticated)
+{<div id="layoutSidenav_nav">
+        <!-- Sidebar -->
+        <ul class="sidebar navbar-nav toggled">
+            <li class="nav-item border border-secondary border-top-0 border-right-0 border-left-0">
+                <a class="nav-link" href="@Url.Action("Index", "Home")" title="🏠 Главная / Home">
+                    <i class="fa fa-home"></i>
+                    <span>Главная <br /> Home</span>
+                </a>
+            </li>
+            @if (this.User.IsInRole("user"))
+            {
+            <li class="nav-item d-none d-md-inline-block border border-secondary border-top-0 border-right-0 border-left-0">
+                <a class="nav-link" href="@Url.Action("Index", "Invitation")" title="📝 Мои тесты / My Tests">
+                    <i class="fas fa-fw fa-file"></i>
+                    <span>Мои тесты<br />My Tests</span>
+                </a>
+            </li>
+            }
+            else if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+            {
+                <li class="nav-item d-none d-md-inline-block border border-secondary border-top-0 border-right-0 border-left-0">
+                    <a class="nav-link" href="@Url.Action("Index", "Invitation")" title="📝 Мои тесты / My Tests">
+                        <i class="fas fa-fw fa-file"></i>
+                        <span>Мои тесты<br />My Tests</span>
+                    </a>
+                </li>
+                <li class="nav-item border border-secondary d-none d-md-inline-block border-top-0 border-right-0 border-left-0">
+                    <a class="nav-link" href="@Url.Action("Index", "Survey")" title="☑ Тесты / Tests">
+                        <i class="fas fa-fw fa-database"></i>
+                        <span>Тесты<br />Test List</span>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-md-inline-block border border-secondary border-top-0 border-right-0 border-left-0">
+                    <a class="nav-link" href="@Url.Action("Index", "Reports")" title="📊 Аналитика / Analytics">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Аналитика<br />Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item d-none d-md-inline-block border border-secondary border-top-0 border-right-0 border-left-0">
+                    <a class="nav-link" href="@Url.Action("Index", "Directory")" title="📂 Справочники / Directories">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Cправочники<br /> Directories</span>
+                    </a>
+                </li>
+            }
+            @*Инструкции*@
+            <li class="nav-item dropdown border border-secondary border-top-0 border-right-0 border-left-0">
+                <a class="nav-link" href="@Url.Action("Show", "Instruction")" title="⚠️ Инструкции / Instructions">
+                    <i class="fa fa-book"></i>
+                    <span>Инструкции <br /> Instructions</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+}

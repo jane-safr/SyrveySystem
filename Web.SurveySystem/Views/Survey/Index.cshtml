@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Анкеты / Surveys";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/Scripts/app/survey/survey.grid.js")
+    <script id="winModalSendInvitation" type="text/x-kendo-template">
+        <div class="row m-0 p-0">
+            <div class="col">
+                <label class="font-weight-bold">Приглашение на тест / Invitation on test N <span id="lblNumber" class="text-primary font-italic"></span></label>
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-12">
+                <label for="dpTestEnd">Дата завершения / Date of completion</label>
+            </div>
+            <div class="col-12">
+                <input id="dpTestEnd" value="" title="Укажите дату окончания тестирования / Select date of completion" />
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col">
+                <label>Выберите сотрудников / Select employees</label>
+            </div>
+            <div class="col-12">
+                <select id="multiSelectUsers" multiple="multiple"></select>
+                <span id="lbCountUser" style="float:right; font-size:10pt">Выбрано / Selected: <span id="countUser">0</span></span>
+            </div>
+        </div>
+        <div class="row mt-0 mr-0 ml-0">
+            <div class="form-group col-12 col-md-6">
+                <button type="button" onclick="closeWinModalEdT()" class="btn btn-danger btn-block"><span class="fa fa-times"></span> Закрыть / Close</button>
+            </div>
+            <div class="form-group col-12 col-md-6">
+                <button type="button" id="sendInvitationBtn" class="btn btn-success btn-block"><span class="fa fa-paper-plane"></span> Отправить / Send</button>
+            </div>
+        </div>
+    </script>
+}
+<div id="winModEditT"></div>
+<label class="font-weight-bold" for="gridSurveys">Анкеты / Surveys</label>
+<div class="row" style="padding: 0 15px 15px 15px;">
+    <div class="card col-12 border-primary">
+        <div class="card-body pt-3 pb-2">
+            <div class="form-group has-search mb-0" title="Введите параметры для поиска / Input search parameters">
+                <span class="fa fa-search form-control-feedback"></span>
+                <span id="clearSearchSurvey" class="fa fa-times-circle form-control-clear" style="display: none;" title="Очистить / Clear"></span>
+                <input type="text" id="txtSearchSurvey" class="form-control" autofocus placeholder="Введите параметры для поиска / Input search parameters" value="">
+            </div>
+            <spam class="text-success font-weight-bold font-italic small ml-3"> Поиск возможен от 2-х символов / Search is possible from 2 characters</spam>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="gridSurveys"></div>
+    </div>
+</div>

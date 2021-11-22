@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Уведомления / Notifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/Scripts/app/notification/notification.grid.js")
+}
+<div class="row m-b-5">
+    <div class="col-12 col-sm-2">
+        <a href="@Url.Action("Index", "Directory")" class="btn btn-link btn-sm"><i class="fa fa-backward" aria-hidden="true"></i> Назад / Backward</a>
+    </div>
+</div>
+<div class="row" style="padding: 15px 5px 5px 5px;">
+    <div class="col-12">
+        <label class="font-weight-bold" for="gridNotifications">Уведомления / Notifications</label>
+    </div>
+</div>
+<div class="row" style="padding: 15px 5px 5px 5px;">
+    <div class="col">
+        <div title="Введите параметры для поиска / Enter search parameters" class="card col-12 border-primary">
+            <div class="card-body">
+                <div class="form-group has-search mb-0">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <span id="clearSearchEmail" class="fa fa-times-circle form-control-clear" style="display: none;" title="Очистить / Clear"></span>
+                    <input type="text" id="txtSearchEmail" class="form-control" autofocus placeholder="Введите почту / Enter email" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding: 15px 5px 5px 5px;">
+    <div class="col-12">
+        <div id="gridNotifications"></div>
+    </div>
+</div>

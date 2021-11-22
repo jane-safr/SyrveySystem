@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Карточка сотрудника / Employee card";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+<script>
+        window.UserId = '@(ViewBag.UserId)';
+</script>
+@Scripts.Render("~/Scripts/app/user/user.edit.js")
+}
+
+<div id="winModUserEdit"></div>
+<div class="row" style="padding: 5px;">
+    @if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+    {
+        <div class="col">
+            <a href="@Url.Action("Index", "User")" class="btn btn-primary  btn-sm" title="К списку пользователей / Back to users"><span class="fa fa-reply"></span> К списку пользователей / Back to users</a>
+        </div>
+    }
+    else
+    {
+        <div class="col">
+            <a href="@Url.Action("Index", "Invitation")" class="btn btn-primary  btn-sm" title="К списку тестов / Back to tests"><span class="fa fa-reply"></span> К списку тестов / Back to tests</a>
+        </div>
+    }
+</div>
+<div class="row" style="padding: 5px;">
+    <div class="col">
+        <div class="card bg-light mb-3" id="divCard">
+            <div class="card-header bg-light font-italic font-weight-bold">
+                Карточка сотрудника / Employee card
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="employeeName" class="font-italic font-weight-bold">Сотрудник / Employee</label>
+                        <div class="input-group" oncopy="return false;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text fa fa-user badge-primary" id="nameSpan"></span>
+                            </div>
+                            <input type="text" class="form-control" disabled="disabled" placeholder="Сотрудник / Employee" id="employeeName" aria-describedby="nameSpan">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="employeeEmail" class="font-italic font-weight-bold">Email</label>
+                        <div class="input-group" oncopy="return false;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text fa fa-envelope badge-primary" id="emailSpan"></span>
+                            </div>
+                            <input type="email" class="form-control" disabled="disabled" placeholder="Email" id="employeeEmail" aria-describedby="emailSpan">
+                        </div>
+                    </div>
+                </div>
+                @if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+                {
+                    <div class="row m-1">
+                        <div class="form-group col-12 pl-0 pr-0">
+                            <label for="selRoles" class="font-weight-bold">Роль / Role</label>
+                            <select id="selRoles" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="row m-1" id="divButton">
+                        <div class="col-12 pl-0">
+                            <button class="btn btn-success btn-block" type="button" id="saveUserBt" title="Сохранить / Save"><i class="fa fa-check"></i> Сохранить / Save</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

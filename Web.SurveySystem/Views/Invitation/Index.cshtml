@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Приглашения / Invitations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    @Scripts.Render("~/Scripts/app/invitation/invitation.grid.js")
+}
+
+<label class="font-weight-bold" for="gridInvitations">Приглашения / Invitations</label>
+@if (this.User.IsInRole("admin") || this.User.IsInRole("manager"))
+{
+<div class="row" style="padding: 5px 10px;" >
+    <div class="card col-12 border-primary">
+        <div class="card-body">
+            <div class="form-group has-search mb-0" title="Введите параметры для поиска / Input search parameters">
+                <span class="fa fa-search form-control-feedback"></span>
+                <span id="txtSearchClearSurvey" class="fa fa-times-circle form-control-clear" style="display: none;" title="Очистить / Clear"></span>
+                <input type="text" id="txtSearchSurvey" class="form-control" autofocus placeholder="Введите параметры для поиска / Input search parameters" value="">
+            </div>
+            <spam class="text-success font-weight-bold font-italic small ml-3"> Поиск возможен от 2-х символов / Search is possible from 2 characters</spam>
+        </div>
+    </div>
+</div>
+}
+<div class="row">
+    <div class="col-12">
+        <div id="gridInvitations"></div>
+    </div>
+</div>

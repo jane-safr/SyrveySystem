@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNet.Identity
+@using Newtonsoft.Json
+@using Web.SurveySystem.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <meta name="description" content="SurveySystem.titan2.ru">
+    <meta name="author" content="a.loginov">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/bundles/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/kendocss")
+    @RenderSection("Styles", required: false)
+    <!-- Bootstrap core JavaScript-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    <!-- Core plugin JavaScript-->
+    @Scripts.Render("~/bundles/jqueryeasing")
+    <!-- Kendo-->
+    @Scripts.Render("~/bundles/kendojs")
+    <script>
+        window.permissions = @Html.Raw(JsonConvert.SerializeObject(new
+                        {
+                            Edit = @User.IsInRole("admin") || @User.IsInRole("manager"),
+                            Delete = @User.IsInRole("admin") || @User.IsInRole("manager"),
+                            Add = @User.IsInRole("manager") || @User.IsInRole("admin"),
+                            View = @User.IsInRole("user"),
+                            CurrentUserId = @User.Identity.GetUserId()
+                        }));
+    </script>
+</head>
+<body id="page-top" class="sidebar-toggled">
+    <div id="progress" class="myclassselector"></div>
+    <div id="winModalInfo"></div>
+    @Html.Partial("~/Views/Shared/Navigation.cshtml")
+    <div id="wrapper">
+        @Html.Partial("~/Views/Shared/Sidebar.cshtml")
+        <div id="content-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <!-- /.container-fluid -->
+            <!-- Sticky Footer -->
+            @if (Request.IsAuthenticated)
+            {
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto text-black">
+                            <span class="font-weight-normal font-italic">SurveySystem © Titan2.ru, @DateTime.Now.Year | Все права защищены | All rights reserved | @Html.ApplicationVersion()</span>
+                        </div>
+                    </div>
+                </footer>
+            }
+        </div>
+    </div>
+    <span id="popupNotificationEdit"></span>
+    <!-- Custom scripts for all pages-->
+    @Scripts.Render("~/bundles/theme")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
